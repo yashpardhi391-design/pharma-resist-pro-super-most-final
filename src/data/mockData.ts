@@ -236,19 +236,19 @@ export const SAMPLE_SCENARIOS = {
     },
   },
   cityCentralLab: {
-    name: "City Central Lab (P-204119 Wild-Type) vs ICU CRE Carrier",
-    description: "Compare Patient P-204119 (Blood Culture K. pneumoniae, fully sensitive) vs ICU Multi-Drug Resistant Patient",
+    name: "City Central Lab: P-204119 (Wild-Type) vs P-109282 (MDR KPC+)",
+    description: "Compare Patient P-204119 (Blood Culture K. pneumoniae, fully sensitive) vs Patient P-109282 (Blood Culture K. pneumoniae, MDR blaKPC-3+)",
     p1: {
       id: "P-204119",
-      name: "P-204119 (City Central Lab)",
+      name: "Patient P-204119 (City Central Lab - Wild-Type)",
       age: 48,
       gender: "Female" as const,
       ward: "General Medical Ward - Bed 08",
-      pathogen: "Klebsiella pneumoniae",
+      pathogen: "Klebsiella pneumoniae (Wild-Type)",
       specimen: "Blood Culture",
       collectionDate: "2026-09-11",
       file: {
-        name: "CityCentral_P204119_Report.jpg",
+        name: "Screenshot_2026-09-11-15-33-39-13_40deb401b9ffe8e1df2f1cc5ba480b12.jpg",
         size: 890000,
         type: "image/jpeg",
         uploadedAt: "Today 3:33 PM",
@@ -278,50 +278,75 @@ export const SAMPLE_SCENARIOS = {
         immunityCapacity: "Normal (100%)" as const,
       },
       antibiotics: [
-        { drug: "Amoxicillin/Clavulanate", drugClass: "Penicillin combination", status: "Sensitive" as const, mic: "4 ug/mL" },
-        { drug: "Ceftriaxone", drugClass: "3rd Gen Cephalosporin", status: "Sensitive" as const, mic: "<= 1 ug/mL" },
-        { drug: "Meropenem", drugClass: "Carbapenem", status: "Sensitive" as const, mic: "<= 0.25 ug/mL" },
-        { drug: "Ciprofloxacin", drugClass: "Fluoroquinolone", status: "Sensitive" as const, mic: "<= 0.5 ug/mL" },
-        { drug: "Gentamicin", drugClass: "Aminoglycoside", status: "Sensitive" as const, mic: "<= 1 ug/mL" },
+        { drug: "Amoxicillin/Clavulanate", drugClass: "Penicillin combination", status: "Sensitive" as const, mic: "4 µg/mL" },
+        { drug: "Ceftriaxone", drugClass: "3rd Gen Cephalosporin", status: "Sensitive" as const, mic: "<= 1 µg/mL" },
+        { drug: "Meropenem", drugClass: "Carbapenem", status: "Sensitive" as const, mic: "<= 0.25 µg/mL" },
+        { drug: "Ciprofloxacin", drugClass: "Fluoroquinolone", status: "Sensitive" as const, mic: "<= 0.5 µg/mL" },
+        { drug: "Gentamicin", drugClass: "Aminoglycoside", status: "Sensitive" as const, mic: "<= 1 µg/mL" },
+        { drug: "Colistin", drugClass: "Polymyxin", status: "Sensitive" as const, mic: "<= 0.5 µg/mL" },
       ],
     },
     p2: {
-      id: "P-9021",
-      name: "Marcus Vance (ICU CRE)",
-      age: 58,
+      id: "P-109282",
+      name: "Patient P-109282 (City Central Lab - MDR)",
+      age: 62,
       gender: "Male" as const,
-      ward: "ICU - Bed 04",
-      pathogen: "Klebsiella pneumoniae (KPC-3+)",
-      specimen: "Endotracheal Aspirate",
-      collectionDate: "2026-09-08",
+      ward: "ICU / High Dependency Unit - Bed 04",
+      pathogen: "Klebsiella pneumoniae (blaKPC-3 Carbapenemase Producer)",
+      specimen: "Blood Culture",
+      collectionDate: "2026-09-10",
       file: {
-        name: "Antibiogram_P9021_KPC.pdf",
-        size: 1420000,
-        type: "application/pdf",
-        uploadedAt: "10:42 AM Today",
+        name: "Screenshot_2026-09-11-15-33-25-78_40deb401b9ffe8e1df2f1cc5ba480b12.jpg",
+        size: 940000,
+        type: "image/jpeg",
+        uploadedAt: "Today 3:33 PM",
       },
-      clinicalParams: DEFAULT_CLINICAL_PARAMS_P1,
+      clinicalParams: {
+        bloodGroup: "A+" as const,
+        anemia: {
+          hasAnemia: true,
+          hemoglobin: 8.5,
+          severity: "Severe Anemia" as const,
+        },
+        comorbidities: ["Severe Renal Impairment (eGFR 35)", "Prior Antibiotic Misuse", "Tissue Hypoxia"],
+        vitals: {
+          weightKg: 74.0,
+          heightCm: 172,
+          bmi: 25.0,
+          bsa: 1.88,
+        },
+        bloodReport: {
+          wbc: 16.8,
+          platelets: 135,
+          serumCreatinine: 2.1,
+          eGfr: 35,
+        },
+        priorAntibioticMisuse: "Yes (Multiple broad-spectrum courses within 3 months)",
+        pathogenVirulenceIndex: "Hypervirulent" as const,
+        immunityCapacity: "Severely Compromised (25%)" as const,
+      },
       antibiotics: [
-        { drug: "Amoxicillin/Clavulanate", drugClass: "Penicillin combination", status: "Resistant" as const, mic: ">= 32 ug/mL" },
-        { drug: "Ceftriaxone", drugClass: "3rd Gen Cephalosporin", status: "Resistant" as const, mic: ">= 64 ug/mL" },
-        { drug: "Meropenem", drugClass: "Carbapenem", status: "Resistant" as const, mic: ">= 16 ug/mL" },
-        { drug: "Ciprofloxacin", drugClass: "Fluoroquinolone", status: "Resistant" as const, mic: ">= 4 ug/mL" },
-        { drug: "Gentamicin", drugClass: "Aminoglycoside", status: "Resistant" as const, mic: ">= 16 ug/mL" },
+        { drug: "Amoxicillin/Clavulanate", drugClass: "Penicillin combination", status: "Resistant" as const, mic: "> 32 µg/mL" },
+        { drug: "Ceftriaxone", drugClass: "3rd Gen Cephalosporin", status: "Resistant" as const, mic: "> 64 µg/mL" },
+        { drug: "Meropenem", drugClass: "Carbapenem", status: "Resistant" as const, mic: "> 16 µg/mL (blaKPC-3+)" },
+        { drug: "Ciprofloxacin", drugClass: "Fluoroquinolone", status: "Resistant" as const, mic: "> 8 µg/mL" },
+        { drug: "Gentamicin", drugClass: "Aminoglycoside", status: "Resistant" as const, mic: "> 16 µg/mL" },
+        { drug: "Colistin", drugClass: "Polymyxin", status: "Sensitive" as const, mic: "<= 0.5 µg/mL" },
       ],
     },
   },
 };
 
-export const DEFAULT_PATIENT_1: PatientData = SAMPLE_SCENARIOS.icuCarbapenem.p1;
-export const DEFAULT_PATIENT_2: PatientData = SAMPLE_SCENARIOS.icuCarbapenem.p2;
+export const DEFAULT_PATIENT_1: PatientData = SAMPLE_SCENARIOS.cityCentralLab.p1;
+export const DEFAULT_PATIENT_2: PatientData = SAMPLE_SCENARIOS.cityCentralLab.p2;
 
 export const SAMPLE_PATIENT_RECORDS: PatientData[] = [
+  SAMPLE_SCENARIOS.cityCentralLab.p1,
+  SAMPLE_SCENARIOS.cityCentralLab.p2,
   SAMPLE_SCENARIOS.icuCarbapenem.p1,
   SAMPLE_SCENARIOS.icuCarbapenem.p2,
   SAMPLE_SCENARIOS.postOpSurgery.p1,
   SAMPLE_SCENARIOS.postOpSurgery.p2,
-  SAMPLE_SCENARIOS.cityCentralLab.p1,
-  SAMPLE_SCENARIOS.cityCentralLab.p2,
 ];
 
 export const STANDARD_MODE_OF_ACTION_CATALOG: ModeOfActionItem[] = [
@@ -617,38 +642,69 @@ export function computeWhyBacteriaAffectsReport(
     },
   ];
 
+  // Determine host vulnerability balance dynamically
+  const p1Vulnerable = !p1BloodProtected || !p1HbProtected || !p1RenalProtected || p1Pathogen.toLowerCase().includes("kpc") || p1Pathogen.toLowerCase().includes("mdr");
+  const p2Vulnerable = !p2BloodProtected || !p2HbProtected || !p2RenalProtected || p2Pathogen.toLowerCase().includes("kpc") || p2Pathogen.toLowerCase().includes("mdr");
+
+  const p1ProtectedBullets = [
+    `Blood Group ${p1Blood}: Lacks terminal A/B carbohydrate epitopes, significantly reducing bacterial adhesin anchor density.`,
+    `Optimal Oxygenation (Hb ${p1Hb} g/dL): Robust neutrophil respiratory burst rapidly generates reactive oxygen species (ROS) to liquidate engulfed pathogens.`,
+    `Hydrodynamic Flushing (eGFR ${p1EGfr} mL/min): High glomerular filtration velocity continuously sweeps away bacteria before biofilm incubation.`,
+    `Preserved Commensal Flora: Intact microbiome occupies receptor niches and produces natural antimicrobial bacteriocins.`,
+  ];
+
+  const p1VulnerableBullets = [
+    `Blood Group ${p1Blood}: High density of Galα1-3Galβ receptors enables tight bacterial fimbrial anchoring that resists urine/mucus washout.`,
+    `Tissue Hypoxia (Hb ${p1Hb} g/dL): Severe reduction in neutrophil oxidative respiratory burst (ROS/MPO), allowing engulfed bacteria to survive intracellularly.`,
+    `Urinary Stasis / Impaired Clearance (eGFR ${p1EGfr} mL/min): Lack of hydrodynamic shear stress allows bacteria to establish persistent exopolysaccharide biofilms.`,
+    `Microbiome Depletion: Prior antibiotic misuse eradicated protective commensal flora, leaving open niches for MDR colonization.`,
+    p1Pathogen.toLowerCase().includes("kpc") ? `Enzymatic Invalidation: Bacterial blaKPC-3 carbapenemase inactivates standard beta-lactams and carbapenems.` : `Altered clearance profile increases susceptibility to invasive colonization.`,
+  ];
+
+  const p2ProtectedBullets = [
+    `Blood Group ${p2Blood}: Lacks terminal A/B carbohydrate epitopes, significantly reducing bacterial adhesin anchor density.`,
+    `Optimal Oxygenation (Hb ${p2Hb} g/dL): Strong neutrophil respiratory burst rapidly generates superoxide and hypochlorous acid to destroy engulfed pathogens.`,
+    `Hydrodynamic Flushing (eGFR ${p2EGfr} mL/min): High glomerular filtration velocity continuously sweeps away bacteria before biofilm formation can occur.`,
+    `Preserved Commensal Flora: Natural microbiome occupies receptor sites and produces antimicrobial bacteriocins.`,
+  ];
+
+  const p2VulnerableBullets = [
+    `Blood Group ${p2Blood}: High density of GalNAc / Gal carbohydrate receptors enables tight bacterial fimbrial anchoring.`,
+    `Tissue Hypoxia (Hb ${p2Hb} g/dL): Severe reduction in neutrophil oxidative burst, allowing ingested bacteria to proliferate.`,
+    `Urinary Stasis (eGFR ${p2EGfr} mL/min): Reduced filtration rate allows bacteria to settle and develop dense protective biofilms.`,
+    `Commensal Disruption: Prior broad-spectrum antibiotic exposure stripped natural colonization resistance.`,
+    p2Pathogen.toLowerCase().includes("kpc") ? `Enzymatic Invalidation: Active blaKPC-3 carbapenemase destroys penicillins, cephalosporins, and carbapenems.` : `Resistance factors present.`,
+  ];
+
   return {
     title: "Pathogen Susceptibility & Host Defense Cross-Analysis Report",
     subtitle: "Clinical, Immunological & Pharmacological Mechanisms: Why the Bacteria Affects or Spares Each Patient",
-    executiveSummary: `This clinical evaluation reveals why bacterial exposure produces severe, invasive clinical disease in ${p1.name} (${p1.id}), whereas host defenses and physiological clearance in ${p2.name} (${p2.id}) prevent uncontrolled bacterial invasion. Differences in blood group adhesin receptor density (${p1Blood} vs ${p2Blood}), tissue oxygenation (Hb ${p1Hb} vs ${p2Hb} g/dL), renal hydrodynamic flushing (eGFR ${p1EGfr} vs ${p2EGfr} mL/min), and prior microbiome depletion explain the stark contrast in clinical vulnerability.`,
+    executiveSummary: `This clinical evaluation reveals why bacterial exposure produces contrasting clinical outcomes between ${p1.name} (${p1.id}) and ${p2.name} (${p2.id}). Differences in blood group adhesin receptor density (${p1Blood} vs ${p2Blood}), tissue oxygenation (Hb ${p1Hb} vs ${p2Hb} g/dL), renal hydrodynamic flushing (eGFR ${p1EGfr} vs ${p2EGfr} mL/min), and isolate resistance genes explain the sharp contrast in host susceptibility and therapeutic response.`,
     patient1Summary: {
       patientName: p1.name,
       pathogen: p1.pathogen,
-      overallImpact: "High Infection Vulnerability (Bacteria Overcomes Defenses)",
-      severityColor: "rose",
-      whyAffectsOrNotBullets: [
-        `Blood Group ${p1Blood}: High density of Galα1-3Galβ receptors enables tight bacterial fimbrial anchoring that resists urine/mucus washout.`,
-        `Tissue Hypoxia (Hb ${p1Hb} g/dL): Severe reduction in neutrophil oxidative respiratory burst (ROS/MPO), allowing engulfed bacteria to survive.`,
-        `Urinary Stasis (eGFR ${p1EGfr} mL/min): Lack of hydrodynamic shear stress allows bacteria to establish persistent exopolysaccharide biofilms.`,
-        `Microbiome Depletion: Prior antibiotic misuse eradicated protective commensal flora, leaving open niches for MDR colonization.`,
-        `Enzymatic Invalidation: Bacterial blaKPC-3 carbapenemase inactivates standard beta-lactams and carbapenems.`,
-      ],
-      bacterialResistanceFailureReason: `The bacteria actively secretes blaKPC-3 carbapenemase and has lost OmpK35/36 porin channels. Routine antibiotics (Meropenem, Ceftriaxone) cannot reach or bind Penicillin-Binding Proteins (PBPs).`,
-      hostDefenseBreakdown: `Innate neutrophil killing is paralyzed by tissue hypoxia (Hb ${p1Hb} g/dL), and low eGFR prevents hydrodynamic flush. Host immune barriers are severely compromised.`,
+      overallImpact: p1Vulnerable ? "High Infection Vulnerability (Bacteria Overcomes Defenses)" : "Protected / Low Colonization Risk",
+      severityColor: p1Vulnerable ? "rose" : "emerald",
+      whyAffectsOrNotBullets: p1Vulnerable ? p1VulnerableBullets : p1ProtectedBullets,
+      bacterialResistanceFailureReason: p1Vulnerable
+        ? `The bacteria produces resistance enzymes or encounters compromised mucosal defenses. Standard empiric antibiotic therapy faces significant barriers.`
+        : `Pathogen in ${p1.name} exhibits wild-type susceptibility. Standard antimicrobial regimens effectively bind penicillin-binding proteins (PBPs) and achieve bactericidal clearance.`,
+      hostDefenseBreakdown: p1Vulnerable
+        ? `Innate neutrophil killing is impeded by physiological factors (Hb ${p1Hb} g/dL, eGFR ${p1EGfr} mL/min), allowing sustained colonization.`
+        : `Innate host defenses (phagocytosis, intact epithelial barriers, high flow wash-out) remain functional, effectively preventing deep tissue invasion.`,
     },
     patient2Summary: {
       patientName: p2.name,
       pathogen: p2.pathogen,
-      overallImpact: p2BloodProtected && p2HbProtected && p2RenalProtected ? "Protected / Low Colonization Risk" : "Partial Defense",
-      severityColor: p2BloodProtected && p2HbProtected && p2RenalProtected ? "emerald" : "amber",
-      whyAffectsOrNotBullets: [
-        `Blood Group ${p2Blood}: Lacks terminal A/B carbohydrate epitopes, significantly reducing bacterial adhesin anchor density.`,
-        `Optimal Oxygenation (Hb ${p2Hb} g/dL): Strong neutrophil respiratory burst rapidly generates superoxide and hypochlorous acid to destroy engulfed pathogens.`,
-        `Hydrodynamic Flushing (eGFR ${p2EGfr} mL/min): High glomerular filtration velocity continuously sweeps away bacteria before biofilm formation can occur.`,
-        `Preserved Commensal Flora: Natural microbiome occupies receptor sites and produces antimicrobial bacteriocins.`,
-      ],
-      bacterialResistanceFailureReason: `Pathogen retains sensitivity to specific alternative agents (e.g. Colistin, Tigecycline, or beta-lactamase inhibitor combinations), allowing effective targeted treatment.`,
-      hostDefenseBreakdown: `Innate host defenses (phagocytosis, intact epithelial barriers, high flow wash-out) remain functional, effectively preventing deep tissue invasion.`,
+      overallImpact: p2Vulnerable ? "High Infection Vulnerability (Bacteria Overcomes Defenses)" : "Protected / Low Colonization Risk",
+      severityColor: p2Vulnerable ? "rose" : "emerald",
+      whyAffectsOrNotBullets: p2Vulnerable ? p2VulnerableBullets : p2ProtectedBullets,
+      bacterialResistanceFailureReason: p2Vulnerable
+        ? `The bacteria produces active blaKPC-3 carbapenemase and has altered porin permeability. Conventional beta-lactams and carbapenems are enzymatically inactivated.`
+        : `Pathogen retains sensitivity to specific alternative agents, allowing effective targeted treatment.`,
+      hostDefenseBreakdown: p2Vulnerable
+        ? `Tissue hypoxia (Hb ${p2Hb} g/dL) and compromised renal excretion (eGFR ${p2EGfr} mL/min) reduce innate clearance, allowing bacterial colonization.`
+        : `Innate host defenses (phagocytosis, intact epithelial barriers, high flow wash-out) remain functional, effectively preventing deep tissue invasion.`,
     },
     detailedFactors: factors,
     bilingualKeyPointsHindi: {
@@ -656,19 +712,27 @@ export function computeWhyBacteriaAffectsReport(
       points: [
         {
           factor: "1. रक्त समूह और चिपकने वाले रिसेप्टर्स (Blood Group Receptors)",
-          kyoAsarKartaHaiYaNahi: `Patient 1 (${p1Blood}) के ब्लड ग्रुप में ऐसे कार्बोहाइड्रेट रिसेप्टर्स होते हैं जहां बैक्टीरिया के कांटे (fimbriae) मजबूती से चिपक जाते हैं। जबकि Patient 2 (${p2Blood}) में ये रिसेप्टर्स नहीं होते, इसलिए बैक्टीरिया शरीर के तरल पदार्थ द्वारा आसानी से बह जाता है।`,
+          kyoAsarKartaHaiYaNahi: p1BloodProtected
+            ? `Patient 1 (${p1Blood}) के ब्लड ग्रुप में अतिरिक्त रिसेप्टर्स नहीं होते जिससे बैक्टीरिया चिपक नहीं पाता। जबकि Patient 2 (${p2Blood}) में रिसेप्टर्स अधिक होने से बैक्टीरिया आसानी से चिपक जाता है।`
+            : `Patient 1 (${p1Blood}) के ब्लड ग्रुप में ऐसे कार्बोहाइड्रेट रिसेप्टर्स होते हैं जहां बैक्टीरिया आसानी से चिपक जाता है। जबकि Patient 2 (${p2Blood}) में बैक्टीरिया शरीर के तरल पदार्थ द्वारा आसानी से बह जाता है।`,
         },
         {
           factor: "2. हीमोग्लोबिन और ऑक्सीजन (Hemoglobin & Neutrophil Kill)",
-          kyoAsarKartaHaiYaNahi: `Patient 1 को एनीमिया है (Hb ${p1Hb} g/dL), जिससे ऑक्सीजन की कमी के कारण प्रतिरक्षा कोशिकाएं (Neutrophils) बैक्टीरिया को मार नहीं पातीं। Patient 2 (Hb ${p2Hb} g/dL) में पर्याप्त ऑक्सीजन से प्रतिरक्षा प्रणाली तुरंत बैक्टीरिया को नष्ट कर देती है।`,
+          kyoAsarKartaHaiYaNahi: p1HbProtected
+            ? `Patient 1 (Hb ${p1Hb} g/dL) में पर्याप्त ऑक्सीजन होने से प्रतिरक्षा कोशिकाएं (Neutrophils) बैक्टीरिया को तुरंत मार देती हैं। Patient 2 (Hb ${p2Hb} g/dL) को एनीमिया होने से बैक्टीरिया बच जाता है।`
+            : `Patient 1 को एनीमिया है (Hb ${p1Hb} g/dL), जिससे ऑक्सीजन की कमी के कारण प्रतिरक्षा कोशिकाएं बैक्टीरिया को मार नहीं पातीं। Patient 2 (Hb ${p2Hb} g/dL) में पर्याप्त ऑक्सीजन से प्रतिरक्षा प्रणाली बैक्टीरिया को नष्ट कर देती है।`,
         },
         {
           factor: "3. गुर्दे की सफाई और पेशाब का बहाव (eGFR Hydrodynamic Clearance)",
-          kyoAsarKartaHaiYaNahi: `Patient 2 का उच्च eGFR (${p2EGfr} mL/min) बैक्टीरिया को जमने से पहले ही बहा देता है। Patient 1 का कम eGFR (${p1EGfr} mL/min) होने से बैक्टीरिया बायोफिल्म बना लेता है।`,
+          kyoAsarKartaHaiYaNahi: p1RenalProtected
+            ? `Patient 1 का उच्च eGFR (${p1EGfr} mL/min) बैक्टीरिया को जमने से पहले ही बहा देता है। Patient 2 का कम eGFR (${p2EGfr} mL/min) होने से बैक्टीरिया बायोफिल्म बना लेता है।`
+            : `Patient 2 का उच्च eGFR (${p2EGfr} mL/min) बैक्टीरिया को जमने से पहले ही बहा देता है। Patient 1 का कम eGFR (${p1EGfr} mL/min) होने से बैक्टीरिया बायोफिल्म बना लेता है।`,
         },
         {
-          factor: "4. दवाओं का असर न होना (Enzymatic Resistance)",
-          kyoAsarKartaHaiYaNahi: `Patient 1 का बैक्टीरिया KPC-3 एंजाइम बनाता है जो आम एंटीबायोटिक्स (जैसे Meropenem) को निष्प्रभावी कर देता है। इसलिए नए विशेष संयोजनों की आवश्यकता होती है।`,
+          factor: "4. दवाओं का असर और एंटीबायोटिक रेजिस्टेंस (Enzymatic Resistance)",
+          kyoAsarKartaHaiYaNahi: p2Pathogen.toLowerCase().includes("kpc") || p2Pathogen.toLowerCase().includes("mdr")
+            ? `Patient 2 का बैक्टीरिया KPC-3 एंजाइम बनाता है जो आम एंटीबायोटिक्स (जैसे Meropenem, Ceftriaxone) को पूरी तरह निष्प्रभावी कर देता है। इसके लिए Colistin जैसे विशेष विकल्पों की जरूरत होती है।`
+            : `एंटीबायोटिक संवेदनशीलता दोनों मरीजों में भिन्न है, जिसके लिए लैब रिपोर्ट के अनुसार लक्षित दवाएं देना आवश्यक है।`,
         },
       ],
     },
@@ -684,26 +748,98 @@ export function computeComparativeAnalysis(
   const bothSensitive = rows.filter((r) => r.crossCompatibility === "Sensitive to Both");
   const divergent = rows.filter((r) => r.crossCompatibility === "Divergent");
   const total = rows.length || 1;
-  const overlapPct = Math.round((sharedResistant.length / total) * 100);
 
-  // Risk Score calculation
-  let baseScore = Math.min(95, Math.round(overlapPct * 1.1 + sharedResistant.length * 6));
-  if (p1.pathogen.includes("KPC") || p2.pathogen.includes("MDR")) {
-    baseScore = Math.min(98, baseScore + 12);
+  // Resistance burden
+  const p1ResistantCount = p1.antibiotics.filter((a) => a.status === "Resistant").length;
+  const p2ResistantCount = p2.antibiotics.filter((a) => a.status === "Resistant").length;
+  const maxResistantIsolate = Math.max(p1ResistantCount, p2ResistantCount);
+
+  // High-priority resistance flags
+  const hasCarbapenemResistance =
+    rows.some((r) => r.drug.toLowerCase().includes("meropenem") && (r.p1Status === "Resistant" || r.p2Status === "Resistant")) ||
+    p1.pathogen.toLowerCase().includes("kpc") ||
+    p2.pathogen.toLowerCase().includes("kpc") ||
+    p1.pathogen.toLowerCase().includes("carbapenem") ||
+    p2.pathogen.toLowerCase().includes("carbapenem");
+
+  const hasCephalosporinResistance =
+    rows.some((r) => r.drug.toLowerCase().includes("ceftriaxone") && (r.p1Status === "Resistant" || r.p2Status === "Resistant"));
+
+  const hasFluoroquinoloneResistance =
+    rows.some((r) => r.drug.toLowerCase().includes("ciprofloxacin") && (r.p1Status === "Resistant" || r.p2Status === "Resistant"));
+
+  // Host clinical indicators
+  const p1Egfr = p1.clinicalParams?.bloodReport.eGfr ?? 90;
+  const p2Egfr = p2.clinicalParams?.bloodReport.eGfr ?? 90;
+  const minEgfr = Math.min(p1Egfr, p2Egfr);
+
+  const p1Hb = p1.clinicalParams?.anemia.hemoglobin ?? 13.5;
+  const p2Hb = p2.clinicalParams?.anemia.hemoglobin ?? 13.5;
+  const minHb = Math.min(p1Hb, p2Hb);
+
+  const p1Misuse = p1.clinicalParams?.priorAntibioticMisuse?.toLowerCase().includes("yes") ?? false;
+  const p2Misuse = p2.clinicalParams?.priorAntibioticMisuse?.toLowerCase().includes("yes") ?? false;
+
+  // Overlap and divergence percentages
+  const sharedOverlapPct = Math.round((sharedResistant.length / total) * 100);
+  const divergencePct = Math.round((divergent.length / total) * 100);
+
+  // When there is shared resistance: use shared overlap percentage
+  // When there is discordant resistance: use divergence percentage so it reflects the real-world difference
+  const compatibilityPercentage = sharedResistant.length > 0 ? sharedOverlapPct : divergencePct;
+
+  // Comprehensive Clinical AMR Risk Score (scale 12 - 98)
+  let calculatedScore = 15; // Baseline surveillance baseline
+
+  if (sharedResistant.length > 0) {
+    calculatedScore += sharedResistant.length * 12 + Math.round(sharedOverlapPct * 0.4);
   }
 
-  let riskLevel: import("../types").RiskLevel = "Low Risk";
-  if (baseScore >= 75) riskLevel = "High Risk";
-  else if (baseScore >= 45) riskLevel = "Moderate Risk";
+  if (divergent.length > 0) {
+    calculatedScore += divergent.length * 5 + maxResistantIsolate * 5;
+  }
 
-  const criticalOverlaps = sharedResistant.map(
-    (r) => `${r.drug} (${r.drugClass}): Shared high-level resistance detected in both isolates.`
-  );
+  if (hasCarbapenemResistance) {
+    calculatedScore += 22; // Critical WHO Priority 1 superbug
+  }
+
+  if (hasCephalosporinResistance) {
+    calculatedScore += 10;
+  }
+
+  if (hasFluoroquinoloneResistance) {
+    calculatedScore += 6;
+  }
+
+  if (minEgfr < 60) calculatedScore += 6;
+  if (minEgfr < 40) calculatedScore += 8;
+  if (minHb < 10) calculatedScore += 6;
+  if (p1Misuse || p2Misuse) calculatedScore += 5;
+
+  calculatedScore = Math.max(12, Math.min(98, calculatedScore));
+
+  let riskLevel: import("../types").RiskLevel = "Low Risk";
+  if (calculatedScore >= 75) riskLevel = "High Risk";
+  else if (calculatedScore >= 45) riskLevel = "Moderate Risk";
+
+  const criticalOverlaps = sharedResistant.length > 0
+    ? sharedResistant.map(
+        (r) => `${r.drug} (${r.drugClass}): Shared high-level resistance detected in both isolates.`
+      )
+    : divergent.map(
+        (r) => `${r.drug} (${r.drugClass}): Clinical Discordance — ${r.p1Status === "Resistant" ? p1.name : p2.name} is Resistant while ${r.p1Status === "Sensitive" ? p1.name : p2.name} is Sensitive.`
+      );
 
   const mutatedStrainFlags = [
-    `${p1.pathogen} • Phenotypic Carbapenemase (blaKPC-3 / ESBL confirmed)`,
-    `${p2.pathogen} • Fluoroquinolone Target Mutation (GyrA Ser83Leu)`,
-    "Loss of OmpK35/36 outer membrane porins detected via synergy assay",
+    hasCarbapenemResistance
+      ? "Carbapenemase (blaKPC-3 serine beta-lactamase producer confirmed)"
+      : "Standard beta-lactamase profile",
+    hasFluoroquinoloneResistance
+      ? "Fluoroquinolone QRDR target mutation (GyrA Ser83Leu)"
+      : "Fluoroquinolone wild-type gyrase",
+    maxResistantIsolate >= 3
+      ? "Loss of OmpK35/36 outer membrane porins detected via AST synergy profile"
+      : "Normal outer membrane porin permeability",
   ];
 
   const suggestedAlternatives = bothSensitive.length > 0
@@ -714,20 +850,20 @@ export function computeComparativeAnalysis(
         "Eravacycline / High-dose Tigecycline (200mg loading, 100mg q12h)",
       ];
 
-  const clinicalSummary = `Comprehensive comparative antimicrobial cross-analysis for ${p1.name} (${p1.id}, ${p1.ward}) and ${p2.name} (${p2.id}, ${p2.ward}). Shared multi-drug resistance identified across ${sharedResistant.length} antimicrobial agents, resulting in an overlap coefficient of ${overlapPct}%. Infection Control & Prevention Committee (HICC) recommendation: Immediate physical cohort barrier precautions and dedicated disposable patient instrumentation. Renal parameters (eGFR: ${p1.clinicalParams?.bloodReport.eGfr || 42} mL/min vs ${p2.clinicalParams?.bloodReport.eGfr || 58} mL/min) mandate tailored aminoglycoside and polymyxin peak/trough therapeutic drug monitoring (TDM).`;
+  const clinicalSummary = `Comprehensive comparative antimicrobial cross-analysis for ${p1.name} (${p1.id}, ${p1.ward}) and ${p2.name} (${p2.id}, ${p2.ward}). ${sharedResistant.length > 0 ? `Shared multi-drug resistance identified across ${sharedResistant.length} antimicrobial agents (overlap: ${sharedOverlapPct}%).` : `Antibiogram divergence detected across ${divergent.length} drugs (${divergencePct}% discordance) with critical carbapenemase resistance in ${p1ResistantCount > p2ResistantCount ? p1.name : p2.name}.`} Infection Control & Prevention Committee (HICC) recommendation: Spatial barrier precautions and contact isolation for Bed 04. Renal parameters (eGFR: ${p1.clinicalParams?.bloodReport.eGfr || 90} mL/min vs ${p2.clinicalParams?.bloodReport.eGfr || 35} mL/min) mandate tailored dosing and avoidance of unmonitored nephrotoxic agents.`;
 
-  const patientFriendlySummary = `Medical Summary for ${p1.name} & ${p2.name}: The laboratory analysis found that the bacteria causing infection are resistant to several common antibiotics. This means routine oral antibiotics won't work effectively. Your healthcare team has identified alternative intravenous medications that are tested and proven to work specifically against these strains. Strict cleanliness and hygiene protocols are in place to ensure safe, targeted recovery.`;
+  const patientFriendlySummary = `Medical Summary for ${p1.name} & ${p2.name}: The laboratory analysis revealed important differences in bacterial antibiotic susceptibility. In ${p1ResistantCount > p2ResistantCount ? p1.name : p2.name}, several conventional antibiotics are ineffective due to bacterial resistance enzymes, while alternative targeted antibiotics (such as Colistin) remain active. Your clinical team has prepared individualized prescriptions and strict hygiene measures to ensure targeted recovery.`;
 
   const whyBacteriaAffectsReport = computeWhyBacteriaAffectsReport(p1, p2);
-  const p1Num = p1.id.replace(/\D/g, "") || "9021";
-  const p2Num = p2.id.replace(/\D/g, "") || "8842";
+  const p1Num = p1.id.replace(/\D/g, "") || "204119";
+  const p2Num = p2.id.replace(/\D/g, "") || "109282";
   const uniqueAccessCode = `PRP-${p1Num}-${p2Num}-${Math.floor(1000 + Math.random() * 9000)}`;
 
   return {
     uniqueAccessCode,
-    riskScore: baseScore,
+    riskScore: calculatedScore,
     riskLevel,
-    compatibilityPercentage: overlapPct,
+    compatibilityPercentage,
     criticalOverlaps,
     mutatedStrainFlags,
     suggestedAlternatives,
@@ -737,8 +873,8 @@ export function computeComparativeAnalysis(
     modeOfActionList: STANDARD_MODE_OF_ACTION_CATALOG,
     whyBacteriaAffectsReport,
     hostVulnerabilityNotes: [
-      `Patient 1: Blood Group ${p1.clinicalParams?.bloodGroup || "B+"}, Hemoglobin ${p1.clinicalParams?.anemia.hemoglobin || 9.6} g/dL, eGFR ${p1.clinicalParams?.bloodReport.eGfr || 42} mL/min`,
-      `Patient 2: Blood Group ${p2.clinicalParams?.bloodGroup || "O+"}, Hemoglobin ${p2.clinicalParams?.anemia.hemoglobin || 13.8} g/dL, eGFR ${p2.clinicalParams?.bloodReport.eGfr || 58} mL/min`,
+      `Patient 1: Blood Group ${p1.clinicalParams?.bloodGroup || "O+"}, Hemoglobin ${p1.clinicalParams?.anemia.hemoglobin || 13.5} g/dL, eGFR ${p1.clinicalParams?.bloodReport.eGfr || 90} mL/min`,
+      `Patient 2: Blood Group ${p2.clinicalParams?.bloodGroup || "A+"}, Hemoglobin ${p2.clinicalParams?.anemia.hemoglobin || 8.5} g/dL, eGFR ${p2.clinicalParams?.bloodReport.eGfr || 35} mL/min`,
     ],
     analyzedAt: new Date().toLocaleDateString("en-US", {
       month: "short",

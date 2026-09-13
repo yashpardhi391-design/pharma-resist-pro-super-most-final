@@ -125,7 +125,7 @@ export const DualReportComparator: React.FC<DualReportComparatorProps> = ({
 
     try {
       const currentPatient = patientNum === 1 ? p1 : p2;
-      const parsedData = await parseMicrobiologyReport(selectedFile, currentPatient);
+      const parsedData = await parseMicrobiologyReport(selectedFile, currentPatient, patientNum);
 
       const fileMeta = {
         name: selectedFile.name,
@@ -269,7 +269,7 @@ export const DualReportComparator: React.FC<DualReportComparatorProps> = ({
             onClick={() => handleSelectScenario(SAMPLE_SCENARIOS.cityCentralLab.p1, SAMPLE_SCENARIOS.cityCentralLab.p2)}
             className="px-3 py-1.5 rounded-xl font-medium bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-700/60 hover:bg-teal-100 dark:hover:bg-teal-900/40 transition-colors cursor-pointer"
           >
-            City Central Lab (P-204119 &bull; O+, eGFR 90) vs ICU CRE
+            City Central Lab: P-204119 (Wild-Type) vs P-109282 (MDR KPC+)
           </button>
           <button
             id="scenario-icu-cre-btn"

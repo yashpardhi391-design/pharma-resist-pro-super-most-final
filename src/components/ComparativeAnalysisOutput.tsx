@@ -121,8 +121,10 @@ ${analysis.clinicalSummary}`;
 
   const radius = 68;
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset =
-    circumference - (analysis.compatibilityPercentage / 100) * circumference;
+
+  const sharedCount = rows.filter((r) => r.crossCompatibility === "Shared Resistance").length;
+  const sensitiveCount = rows.filter((r) => r.crossCompatibility === "Sensitive to Both").length;
+  const divergentCount = rows.filter((r) => r.crossCompatibility === "Divergent").length;
 
   const getRiskBadge = (level: RiskLevel) => {
     switch (level) {
@@ -155,9 +157,9 @@ ${analysis.clinicalSummary}`;
   const riskBadge = getRiskBadge(analysis.riskLevel);
   const RiskIcon = riskBadge.icon;
 
-  const sharedCount = rows.filter((r) => r.crossCompatibility === "Shared Resistance").length;
-  const sensitiveCount = rows.filter((r) => r.crossCompatibility === "Sensitive to Both").length;
-  const divergentCount = rows.filter((r) => r.crossCompatibility === "Divergent").length;
+  const displayedGaugePercent = sharedCount > 0 ? analysis.compatibilityPercentage : analysis.riskScore;
+  const strokeDashoffset =
+    circumference - (Math.min(100, Math.max(5, displayedGaugePercent)) / 100) * circumference;
 
   const riskReductionGuide = analysis.riskReductionGuide && analysis.riskReductionGuide.length > 0
     ? analysis.riskReductionGuide
@@ -242,7 +244,7 @@ ${analysis.clinicalSummary}`;
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-teal-500/10 rounded-full blur-2xl pointer-events-none" />
           <div className="flex items-center space-x-2 text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
             <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-            <span>Resistance Profile Overlap</span>
+            <span>{sharedCount > 0 ? "Resistance Profile Overlap" : "AMR Risk Severity Index"}</span>
           </div>
 
           <div className="relative w-44 h-44 flex items-center justify-center my-2">
@@ -271,10 +273,10 @@ ${analysis.clinicalSummary}`;
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-3xl sm:text-4xl font-extrabold font-mono text-slate-900 dark:text-white tracking-tight">
-                {analysis.compatibilityPercentage}%
+                {displayedGaugePercent}%
               </span>
               <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">
-                Overlap Match
+                {sharedCount > 0 ? "Overlap Match" : "AMR Severity Score"}
               </span>
             </div>
           </div>
