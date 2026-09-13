@@ -1,0 +1,6 @@
+{
+  "name": "Pharma Resist Pro - Anti-Bacterial Resistance (AMR) Platform",
+  "description": "Clinical Anti-Bacterial Resistance (AMR) Surveillance, Antibiogram Cross-Analysis & Antibiotic Stewardship Platform",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
