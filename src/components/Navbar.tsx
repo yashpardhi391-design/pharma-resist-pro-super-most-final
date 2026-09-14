@@ -337,6 +337,27 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Verify by Report Code</span>
             </button>
           )}
+
+          {/* Mobile Theme Toggle Button */}
+          <button
+            onClick={() => {
+              toggleTheme();
+            }}
+            type="button"
+            className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 mt-2 cursor-pointer"
+          >
+            <div className="flex items-center space-x-3">
+              {theme === "dark" ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-700" />
+              )}
+              <span>{theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}</span>
+            </div>
+            <span className="text-[11px] font-mono uppercase px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold">
+              {theme}
+            </span>
+          </button>
         </div>
       )}
     </header>
